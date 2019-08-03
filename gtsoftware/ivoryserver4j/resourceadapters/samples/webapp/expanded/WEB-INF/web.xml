@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+  <description>web.xml file for Ivory JCA Resource Adapter samples</description>
+  <display-name>Ivory JCA Resource Adapter samples</display-name>
+  <context-param>
+    <param-name>IvoryConnectionFactoryName</param-name>
+    <param-value></param-value>
+  </context-param>
+  <servlet>
+    <servlet-name>InstallationVerification</servlet-name>
+    <servlet-class>gtsoft.ivory.samples.jca.InstallationVerificationServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DateStringSample</servlet-name>
+    <servlet-class>gtsoft.ivory.samples.jca.DateStringServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DateDomSample</servlet-name>
+    <servlet-class>gtsoft.ivory.samples.jca.DateDomServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DateJDomSample</servlet-name>
+    <servlet-class>gtsoft.ivory.samples.jca.DateJDomServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InstallationVerification</servlet-name>
+    <url-pattern>/ivp</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DateStringSample</servlet-name>
+    <url-pattern>/datestring</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DateDomSample</servlet-name>
+    <url-pattern>/datedom</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DateJDomSample</servlet-name>
+    <url-pattern>/datejdom</url-pattern>
+  </servlet-mapping>
+</web-app>

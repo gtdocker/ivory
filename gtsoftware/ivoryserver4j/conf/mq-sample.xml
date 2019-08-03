@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root-settings>
+    
+    <admin-settings command-listener-port = "54444"/>
+    
+    
+    <service-settings>
+        <jndi-context-settings>
+            <property name="java.naming.factory.initial" value="com.ibm.mq.jms.context.WMQInitialContextFactory"/>
+            <property name="java.naming.provider.url" value="gtxmqseries:1414/GT.DEF.SVRCONN"/>
+            <property name="java.naming.security.authentication" value="none"/>
+            <!-- property name="java.naming.security.principal" value="mquser"/ -->
+            <!-- property name="java.naming.security.credentials" value="mquserpassword"/ -->
+        </jndi-context-settings>
+
+        <jms-connection connection-factory = "GT01" acknowledge-mode="transacted">
+            <session queue-receive-from = "WINDOWSQ1" queue-reply-to = "WINDOWSQ2" ivory-service-uri = "http://localhost/soap/sayHello.ashx"/>
+        </jms-connection>
+
+    </service-settings>
+    
+    <log-settings>
+        <log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+            <appender name="FILE" class="org.apache.log4j.FileAppender">
+                <param name="threshold" value="INFO"/>
+                <param name= "File" value="../log/mq-sample.log"/>
+                <layout class="org.apache.log4j.PatternLayout">
+                    <param name="ConversionPattern" value="%d [%c] [%t] %-5p %x - %m%n"/>
+                </layout>
+            </appender>
+            
+            <appender name = "CONSOLE" class="org.apache.log4j.ConsoleAppender">
+                <param name="threshold" value="INFO"/>
+                <layout class="org.apache.log4j.PatternLayout">
+                    <param name="ConversionPattern" value="[%t] [%d{MM-dd-yyyy HH:mm:ss,SSS}] %-5p - %m%n"/>
+                </layout>
+            </appender>
+            
+            <root>
+                <level value="INFO"/>
+                <appender-ref ref="FILE"/>
+            </root>
+        </log4j:configuration>
+    </log-settings>
+</root-settings >

@@ -1,0 +1,1098 @@
+
+                         Ivory Server (R)  6.1.0
+                    Copyright by GT Software, Inc.
+
+Build 6.2.0.20171107
+
+- Do not count SYNC message response segments to count in
+    received segment count.
+
+- Resolve a build issue in the Linux build.
+ 
+Build 6.2.0.20171101
+ 
+- Java Off Host Server Only - Added logic to either use a 
+    secure or unsecure connection when using IMS Connect. To determine 
+    what type of connection to use, modify the 
+    “Use Secure Connection (Java Server Only)” Boolean property in 
+    the corresponding IMS Point Node in the diagram.
+
+- Documentation – provide steps to properly configure 
+    AT-TLS on the mainframe.
+
+ 
+Build 6.1.0.20170915
+
+- Add isNulls function, styled after isBlanks
+ 
+- Add new date format DDMMMYY
+ 
+- Add support for CM1, SL=Confirm to IMS Connect
+ 
+- Updates for GIIIMSC2 to better handle some client 
+ options
+ 
+- Remove support for UniKix TPE server.
+
+Build 6.1.0.20170728 
+
+- Add isBlanks function
+
+- Allow isNumeric function to test PIC 9 type fields.  
+(Previously the function was only useful for testing strings for 
+numeric values before moving them to a numeric field.  This update 
+makes the function useful for testing a numeric field for a valid 
+value prior to using it in a movement.)
+
+- Treat a timeout on a read for a response to an ACK 
+message sent to IMS Connect as normal.
+
+- Fix an error in parsing REST Request URI's which would
+cause the proper operation to not be found.  The URI style in question
+would contain a variable node in the URI but ended in a constant node.
+
+/<variable in URI>/EndingIsAFixedValue
+
+ Build 6.0.0.20170327
+
+-  Additional updates have been made to support REST Service Operation based projects:
+
+                  The server will now generate default responses for HEAD and OPTIONS requests
+                  based on the attributes of the project.  It will do this if the user does not
+                  build operations for the HEAD and/or OPTIONS http verbs.  The OPTIONS response
+                  will include any defined verbs in operations in the project in the Allow: http
+                  header with the addition of HEAD and OPTIONS, if needed.
+
+                  The server will now allow a user defined 404 response.
+
+                  The server will respond with a 404 response for potential REST URI's which cannot 
+                  be matched to an operation.
+
+                  The RESTRequest query string parameter is not needed for a service which is defined
+                  with REST Service operation nodes.
+
+                  A new project resource file has been added, the .ivr file, which will allow mapping
+                  of the http verb and sub path portions off of the base path of the service to the 
+                  correct operation.
+
+                  The server will accept user input from the query string and path variables as included 
+                  in a project.  For PUT and POST requests, XML or JSON input data will ba accepted as 
+                  defined in the project.
+
+ Build 6.0.0.20161205
+ 
+- Ivory Server will now support projects which are dedicated 
+to RESTful services.
+
+- Ivory Server for zOS and CICS versions: SAMPLIB now contains a 
+copy book with IVCALL2 for COBOL & PL1.
+
+Member names are IVCALL2C and IVCALL2P respectively.
+                     
+ 
+ Build 5.1.4.20161111
+
+ - The Ivory Server should no longer crash when processing large MTOM 
+ responses by attempting to free storage multiple times.
+
+
+ Build 5.1.3.20160920
+
+- VSAM Manager module of Ivory Server for zOS can now be configured 
+thru a set of parameters instead of hard coded constants. This new 
+type of configuration is optional and if not used the Server uses default
+arguments in the VSAM Manager.
+
+- VSAM Manager module of Ivory Server enhanced with garbage collector 
+routine that helps to prevent the exhaustion of its RPL Pool table and 
+reduces the chances of message GTMAI146A. Together with the configuration 
+parameters mentioned above, this routine allows users to increase/decrease 
+the size of RPL pool and/or tune the performance of VSAM access.
+             
+- Ivory Server documentation now describes how to code and implement VSAM 
+parameters and eventual changes in JCL.
+
+- Fixed an issue with parsing Web Service Client Point node respsonses which 
+could cause issues in data movements, especially when arrays are involved.  
+This could lead to empty  moves, duplicated moves, or seemingly correct 
+results.  These issues were more apparent in JSON responses.
+
+- Web Service Client Point nodes which used wsdl to describe the payload 
+would not process correctly for wsdl's which used certain encoding styles 
+when the service was REST/JSON.  The code will force a good encoding style 
+for called services which return REST/JSON.
+                   
+ 
+ Build 5.1.2.20160901
+ 
+- Fix improper handling of special 3270 aid values for 3270 Point Nodes 
+on Linux servers.
+
+- Update code which calls delegate processes on the Ivory Server for z/OS 
+to issue LOADs and DELETEs for the called routines when appropriate.
+
+ Build 5.1.2.20160818
+
+- Added support for complex types for Fault Details when 
+using the CLI wizard to generate a project
+             
+- Added support for turning on tracing in a callable project
+by setting a flag in the IVCALL2 header
+             
+- Fixed an error where fields in optional structures would 
+be moved incorrectly in callable projects
+             
+- Fixed an error where a web service client point node
+for a RESTful service would look for a SOAP Action and 
+generate an error if one was not found
+              
+ Build 5.1.1.20160427
+
+- The SYNCLEVEL on IMS Connect requests could be set 
+   improperly, resulting in a "random" syclevel.  This should be 
+   fixed.
+
+- Input copybooks with ODO arrays could cause a server 
+   crash if the input and output copybooks defined for a node were
+   not the same.  This should be fixed.
+
+- Time zone offsets could be improperly parsed into and out of the fractional 
+  seconds portion of a Time/DateTime field.  This should be fixed.  
+  
+  Please note that Ivory does not currently support time zone offsets.  
+  They are currently stripped from the fields. 
+
+ Build 5.1.0.20160229
+ 
+- Updates to avoid storage violations (SIGSEGV) when a project 
+  deployed by an old Studio Is executed on a new (4.5.1+) server with 
+  unbounded Base64 fields.
+
+- Add new properties to Web Service Client Point Node to override
+  the existing behavior of setting the SOAPAction http header.  The existing
+  behavior is to set the SOAPAction as the concatenation of the target
+  namespace and web service operation.
+  
+  The updated settings consist of a field to toggle the override behavior 
+  and a field to customize the SOAPAction.  The field which contains the
+  SOAPAction will initially contain the SOAPAction as imported in the wsdl.
+  If the override field is set from true to false, the SOAPAction
+  customization will be reloaded from the wsdl definition.  If the SOAPAction 
+  override is in effect, then when Ivory Server makes the Web Service Client
+  call the SOAPAction will be enclosed in quotes in the HTTP header, as 
+  demonstrated below.
+
+  SOAPAction field in Studio - target SOAP Action
+
+  resulting http header      - SOAPAction: "target SOAP Action"
+
+  Note that an empty SOAPAction field in the Studio will result in:
+
+  SOAPAction: ""
+  
+- Added support for UTF-16BE (big endian) fields in USAGE NATIONAL
+  PIC N data items in copybooks  for Link Point nodes.
+
+- Added support to continue after error (application abend) for 
+  Link3270 projects by adding a 3270 point node (set to catch the 
+  error) after the 3270 Action node.
+              
+- Added support for mixed case passwords for inbound http requests.  
+  This can be turned on by adding AllowMixedCasePassword=1 in the 
+  {AUTHORIZATION} section of Ivory:/etc/ivorycwi.ini (if using 
+  TCPIPSERVICES) and/or Ivory:/etc/giiipasp.ini (if using the IVAS
+  listener transaction).
+						 
+-IMS Connect exit GIIIMSC2 has been reworked to support IBM APAR 
+ PI26856. It can be reassembled and linked in accordance to the IMS 
+ release level of the DATASTORE. It currently supports IMS 11, 12, 13 
+ & 14. The distributed load module is assembled using IMS 13 settings.
+             
+-	Ivory Server for zOS has been updated to support IBM APAR PI26856; 
+  it uses the IRM_F2_GENCID flag to make sure a different CLIENT ID 
+  generated to avoid DUPLICATES rejections
+              
+- Added TCPIP Stack name parms to allow Ivory to use a secondary IP 
+  stack. 
+
+- Added MaxTrace parm to stop tracing at xxxx  Megabytes.     
+ 
+  
+ Build 5.0.0.20150420
+ 
+- Fix several issues with JSON processing in the code.  
+  These include fixing the parsing of wrapped arrays in JSON and
+  no longer attempting to format attributes.
+    
+- Update the server to handle some new internal file 
+  formats related to changing references to SOAP in projects to
+  a more generic service.
+
+- A message about the GTHFSCFG DD being missing has been 
+  removed from being issued to avoid writing too many messages to
+  the GWAOUT log.  
+ 
+ 
+ Build 4.6.0.20150223
+ 
+ - Added timeout support for the IMS Connect interface.
+
+- Fix sharing of GWAOUT, GWAERR, GWAIN so that the file is 
+  not closed when it is being used by another task.  (This could 
+  trigger a S0C4 abend.
+
+- Update to resolve a memory leak when Ivory modules are 
+  linked to multiple times in a task.
+
+- Change the EZA INITAPIX call to an INITAPI until Ivory
+  has a facility to set the TCPIP stack name to use.
+
+- Add support for persistent socket sessions for GIICALZ
+
+- Add new module GIICALC, this is a CICS compatible version
+  of GIICALZ.  That is the program will CALL GIICALZ, but INCLUDE 
+  GIICALC at link-edit/bind.
+
+- Add support for the Ivory2 header to the IDMS GIICALIA
+  interface.
+
+- Add support for callable timeouts to the IDMS GIICALIA
+  interface.
+
+- Add new routines to allow call of non-authorized modules 
+  a more protected environment, rather than using an SVC to switch
+  authorization mode.
+
+- The GTCTR copybook fields would be populated based upon
+  the loop count of the last loop which contains that array element
+  as a part of the move operations.  The code will now track the 
+  maximum index value calculated for the field during project 
+  execution.
+
+- Several updates for better handling http multipart uploads 
+  where the client sends an incomplete/invalid message.  The server 
+  could go to high CPU utilization when the socket session closed.
+  The server should better detect the soceket closure and exit more 
+  gracefully.
+
+- Support suppression of optional time simple type tag 
+  generation for callable services when the passed in data is 
+  spaces.
+                    
+
+Build 4.5.1.20141215
+
+- IMS Point Node Propagate MFS Null Character parameter setting will now be supported for BLOBs and the setting will 
+  be inherited for segments parsed out of a multi-segment BLOB in the Associate Copybooks with BLOB delegate.
+
+Build 4.5.1.20140421
+
+- GIICALZ has been updated to enforce stricter edits on the data passed in the Callable Service requests.
+
+Build 4.5.0.20130805
+
+- Add new Ivory Data Hub nodes.
+
+- Performance improvements with nested arrays.
+
+- Defer out of bounds checking of array counters until the
+  array is actually referenced.
+
+- Windows Servers only, remove Microsoft Visual C++ Redistributable
+  Package requirement.
+
+- Windows Servers only, new installer.
+
+- Fix false 1733 fault codes, GTRLE - Input and Output overlap
+
+- Add support for NULL column value Insert with Ivory Data Hub.
+ 
+- Allow complete trace to include DTD information optionally
+  being returned from Ivory Data Hub JDBC driver.
+ 
+- Return xsi:nil="true" for NULL column value Select with
+  Ivory Data Hub.
+
+- ivp.srv now reports whether or not the Ivory Data Hub
+  driver is available.
+
+- Return an error when zero rows are affected from a Data Hub 
+  Insert, Update or Delete.
+
+Build 4.4.2.20130528
+
+- Performance improvements made to projects generated with 
+  the IMS Wizard.
+
+Build 4.4.2.20130507
+
+- Add support for codepage 1026.
+
+Build 4.4.2.20130424
+
+- Fix erroneous Fault Code 1731 errors.
+
+- Fix excess data being sent to IMS when GTRLE is in use and
+  input size is greater than message segment size.
+
+- User generated SOAP Faults now include standards
+  compliant Fault Code when option is set and Fault
+  Code property is left empty.
+
+- dateTime and time conversions now support fractional
+  seconds.
+
+- Enhanced IMS Wizard processing now includes the 
+  DATA_LENGTH field being the sum of the length of the 
+  fixed copybook area and the length of the unbounded 
+  strings area. 
+
+Build 4.4.2.20130322
+
+- Fix bug where after the first IMS Point Node in a project 
+  no data is being returned.
+
+- Fix memory corruption issue in projects with multiple
+  IMS Point Nodes and modname being returned from first
+  IMS interaction.
+
+- Fix bug where IMS errors are ignored when continue
+  after short/long output is turned on.
+
+- Fix ../ivory.commarea?file=trace&service=abc, not
+  returning trace file.
+
+Build 4.4.2.20130320
+
+- Fix abend in IMS Connect conversational mode.
+
+- Suppress RLE errors in favor of original DFSMO* error.
+
+- Combine all segments from DFSMO* messages to create a single
+  error message from IMS.
+
+- Allow errors from callable services to be returned in 
+  response area.
+
+Build 4.4.2.20130305
+
+- Fix bug where invalid numeric data is appearing in IMS 
+  input areas. RLE compression mistakenly occurring when
+  it should not.
+
+Build 4.4.2.20130215
+
+- Add Connect Timeout and Read Timeout support to Web Service Client
+  Point Node.
+
+- IMS Wizard enhanced processing support, add support unbounded strings
+  and strings greater than 32K. These strings are represented by an
+  offset and length in the main copybook and are stored in a variable
+  lengthed area following the main copybook.
+
+- IMS Wizard, add support for SOAP Fault Detail element extracted
+  from WSDL.
+
+- Support standards compliant SOAP Fault Code option defined in Ivory
+  Studio.
+
+- Linux, zLinux and Windows Java Server only, support SSL client
+  authentication in the Web Service Client Point Node.
+
+- Windows Java Server only, code added so native exceptions within
+  Ivory Server will no longer terminate application server process.
+  HTTP 500 error is now returned to client with debugging
+  information to aid GT Support in root problem resolution.
+
+- Support Callable Services in Windows 64 bit Java Server. Previously
+  return code 1714 was being returned and the Callable Service
+  project was not processed.
+
+- Fix bug which does not allow nested arrays to be used in Callable
+  Services input.
+
+- Fix bug in Substring Function Node Function where strings with
+  non US ASCII values are returned truncated.
+
+- Errors are now reported when IMS Point Node compress/expand fails.
+
+- Fix bug where IMS Connect processing fails on second iteration if 
+  IMS Point Node/Execute IMS Node are within a loop.
+
+Build 4.4.1.20130222
+
+- Fix bug where Complex Occurs Depending On has missing data if 
+  "Allow Long Output Area" is true.
+
+- Fix bug where movements with work variable as source and work 
+  variable value established via .ivw file do not work.
+
+Build 4.4.1.20121228
+
+- Fix Mixed Mode Link3270 when it does not recognize extremely
+  busy screens with more than 25 vectors.
+
+- Skip Function Node date/time conversions if source is blanks
+  or nulls.
+
+Build 4.4.1.20121203
+
+- Do not attempt Function Node date and time conversions if the
+  source value is not set. This can occur if a SOAP input element
+  is optional and not supplied in the input envelope. Fixes
+  SOAP Fault 1577.
+  
+- Fix codepage 500 conversion of carriage return linefeed. 
+
+Build 4.4.1.20121121
+
+- Fix problem under WebSphere where responses less than 4K in
+  size are not being returned.
+
+Build 4.4.1.20121102
+
+- Fix abend caused by complete tracing and creation of CDATA 
+  elements with short areas.
+
+- Add support back into Ivory for IBM supplied IMS Connect user
+  exits SAMPLE and SAMPL1.
+
+- Fix movements not executed issue when source of movement includes
+  choice arrays either directly or indirectly.
+
+Build 4.4.1.20121024
+
+- Fix crash when old project references unsupported IBM supplied
+  IMS Connect user exits SAMPLE or SAMPL1.
+
+Build 4.4.1.20121019
+
+- Fix bug in Mixed Moded Link3270 processing where fields are not 
+  cleared by empty movements.
+
+- Fix bug in IMS Point Node processing where return  code, reason 
+  code, etc work variable values are not being moved to output.
+
+- Fix bug in Execute Web Service Client Node where work variable 
+  values set during continue after error are not being moved to output.
+
+- Fix bug where float and double values being moved more than once 
+  might not get moved to final destination.
+
+Build 4.4.1.20121015
+
+- Add support for "Check 3270 Modified Extended Attribute"
+  comparison operator within the Decision Node for Mixed Mode Link3270
+  and Native Mode Link3270. 
+
+- Add support for "Get List of 3270 Fields with Selected 
+  Attribute" Function Node functions for Mixed Mode Link3270 and 
+  Native Mode Link3270. 
+
+- Add support for "Get Number of 3270 Fields with Selected
+  Attribute" Function Node functions for Mixed Mode Link3270 and Native 
+  Mode Link3270. 
+
+- Add support for "Get List of 3270 Fields with Modified Selected
+  Extended Attribute" Function Node functions for Mixed Mode
+  Link3270 and Native Mode Link3270. 
+
+- Add support for "Get Number of 3270 Fields with Modified
+  Selected Extended Attribute" Function Node functions for Mixed Mode 
+  Link3270 and Native Mode Link3270. 
+
+Build 4.4.1.20120904
+
+- Return better diagnostic information to Ivory Studio Link3270 Client 
+  and Recorder when Callable Services request fails.
+
+- Fix to allow Ivory Studio Link3270 Client and Recorder to connect to
+  IPIC servers requiring authentication using Callable Services. 
+  RC = -27 error.
+
+- Fix to allow Ivory Studio Link3270 Client and Recorder to connect to
+  IPIC servers with names less than 8 characters long using Callable
+  Services. RC = -22 error.
+
+Build 4.4.1.20120810
+
+- Add support to Function Node function Convert Date/Time to convert
+  an entire work variable array in one operation.
+
+Build 4.4.1.20120715
+
+- Add additional SOAP Headers to Web Service Client Point Node.
+
+- Add ability to propagate Username Token values to IMS Point Node
+  authentication.
+
+- More IMS Wizard enhanced processing support, add counter
+  field in front of optional groups indicating if group exists.
+
+- Support Studio option to generate output float and double values
+  in scientific notation.
+
+- Add optional compression/expansion to IMS input and output
+  data. Run Level Encoding algorithm supported.
+
+- Add optional compression/expansion to Callable Services input and 
+  output data. Run Level Encoding algorithm supported.
+
+- Add new dateTime format, YYYY-MM-DD-HH.MM.SS.NNNNNN to Function
+  Node Date and Time functions.
+
+- Linux, zLinux and Windows Java Server only, add new JMS Server to
+  front end Ivory Server so data may be delivered via message queues.
+
+- Linux, zLinux and Windows Java Server only, add archive usage data 
+  scripts.
+
+Build 4.4.0.20120515
+
+- Ivory Server JCA resource adapter is now available.
+
+- Fix one extra trailing zero when zero filling and value is x.0.
+
+Build 4.4.0.20120415
+
+- Fix request data within nested arrays not being processed issue.
+  Structure must be in the form of: 
+  ComplexA[].ComplexB[].ComplexC.SimpleA and the data not processed
+  is in ComplexA[1] or higher.
+
+Build 4.4.0.20120315
+
+- Fix missing response data from nested arrays when processing is
+  done inner first and an inner array has no data. IMS top down
+  Wizard generates projects with this type of processing.
+
+- Fix invalid response data when an unreferenced unwrapped simple
+  array with a numeric type has no elements.
+
+Build 4.4.0.20120229
+
+- Fix infinite loop/out of storage condition when source of data
+  movement is choice[].parent.attribute.
+
+- Fix "Reinitialize Storage On Loop" not working for Delegate 
+  Point Nodes.
+
+Build 4.4.0.20120215
+
+- Fix bugs related to IMS top down service wizard support.
+
+Build 4.4.0.20120206
+
+- Remove "Fixed IMS Connect issue" from 4.4.0.20120115.
+
+Build 4.4.0.20120115
+
+- Add IMS top down service wizard support.
+
+- Add new Callable Services 512 byte header. Support requests for
+  both 256 and 512 byte headers.
+
+- Add Ivory Log as new error storage and trace type for Callable 
+  Services requests.
+
+- Callable Services trace files now include trace entries for
+  header, request and response.
+
+- Fix operation level .ivw files not being used in Callable
+  Services projects.
+
+- Fixed IMS Connect issue -  when an 8 character transaction was 
+  specified an extra space was inserted between the transaction code 
+  and the start of the data area. 
+
+- CDATA trace file entries now prefixed with hexadecimal offset.
+
+- Linux, zLinux and Windows Java Server only, add support for IBM CICS
+  Transaction Gateway JCA resource adapter.
+
+- Linux, zLinux and Windows Java Server only, add support for https
+  connections in the IDMS custom delegate.
+
+- Linux, zLinux and Windows Java Server only, add support for preserving
+  userid and password case in Ivory Supplied Data Access Delegate.
+
+Build 4.3.1.20111201
+
+- Fix IMS Message Flow One Way support.
+
+Build 4.3.1.20110926
+
+- Add support for Transfer-Encoding: chunked for request data.
+
+- Add Message Flow One Way support to Web Service Operation Node,
+  Web Service Client Point Node and IMS Point Node. SEND_ASYNC
+  is issued to IMS when Message Flow = One Way.
+
+- Fixed server crash when attempting to connect to an IMS Connect
+  server but the server is actually an http or ftp server. Must
+  change user exit program to GIIIMSC2.
+
+- Responses from IMS Connect with a modname which start with
+  DFSMO are now considered error messages and will not be
+  processed as returned data. The error message will be 
+  available in the "Error Text Work Variable".
+
+- Add new default IMS Connect user exit program GIIIMSC2. When
+  selected new properties "Return Code Work Variable", "Reason
+  Code Work Variable" and "Error Text Work Variable" are available
+  for use. Old default user exit program GIIIMSCX continues to 
+  be available but sample exits supplied by IBM, HWWSMPL0 and 
+  HWSSMPL1, are no longer supported. Ivory supplies IMS V10 and
+  IMS V11 compatible versions of GIIIMSC2 and GIIIMSCX. These
+  modules ship with Ivory Server for CICS and Ivory Server for z/OS. 
+  Contact customer support if you need a copy of these modules.
+
+- Add "IMS Message Segment Size" property to IMS Point Node. This
+  causes Ivory Server to break up data into a multi-segmented
+  IMS message.
+
+- Add "IMS Send Message Length" property to IMS Point Node. This
+  causes Ivory Server to send IMS data in either the length
+  specified or the copybook length, whichever is smaller.
+
+- Added StatusCode attribute to Web Service Client output element in 
+  Ivory Server trace.
+
+- Linux, zLinux and Windows Java Server only, add support for  
+  SSL connections between Ivory Server and IBM CICS Transaction
+  Gateway.   
+
+- Linux, zLinux and Windows Java Server only, fix trace display
+  problem when using local 3270 Gateway and extended non-ascii
+  characters.
+
+- Linux, zLinux and Windows Java Server only, add the IDMS custom
+  Java delegate to base product and included in ivoryserver4j.jar.
+
+- Linux, zLinux and Windows Java Server only, add host codepage
+  availability check to ivp.srv results.
+
+- Linux, zLinux and Windows Java Server only, add support for Java 
+  delegates to have floats and doubles in the non-local byte order.
+
+Build 4.3.1.20110814
+
+- Extremely large COMP-2 values (E+60) can cause storage overlays
+  and cause Ivory Server to crash. Fix so that scientific notation
+  is generated for large numbers.
+
+- Support IEEE 754 floating point big endian format. Previously
+  only little endian format was supported.
+
+- Fix problem where REDEFINE numeric string PIC data may cause the
+  REDEFINE data to be outputted incorrectly.
+
+- Fix Mixed Mode 3270 Send Text to return valid characters.
+
+Build 4.3.1.20110715
+
+- Linux, zLinux and Windows Java Server only, add Usage Based 
+  Monitoring.
+
+- Windows Java Server, add 64 bit support. All Java based Ivory
+  Servers now support 64 bit mode.
+
+- Add ability to suppress the trimming of blanks when a work variable
+  is used as an embedded value.
+
+- Fix Decision Node Exists check to properly indicate if an attribute
+  really exists.
+
+- Fix text of trace inaccessible messages to include full trace file
+  name.
+
+- Fix memory leak caused by undefined work variables being specified
+  in .ivw (work variable initialization) files. Web application level
+  .ivw files amplify this problem.
+
+- Callable Services supplied input and output lengths must now be
+  at least the size of the correlating copybooks. If they are not
+  new error return codes 1713 (input too small) and 1714 (output
+  too small) will be generated and processing will terminate.
+
+- HTTP header change, remove double quotes from charset value.
+
+- Add traceflush query string parameter to force trace entries
+  to be written to the trace file immediately. Advanced diagnostic
+  purposes only.
+
+- Windows Java Server only, fix trace file access when Ivory Server
+  and Ivory Studio are running on the same machine.
+
+- Linux, zLinux and Windows Java Server only, explictly close
+  ivory.properties file. WebSphere 7.0.0 fixpack 15 not automatically
+  releasing resources associated with file. May cause system to run
+  out of file handles.
+
+- Linux and zLinux Java Server only, fix SIGSEGV crash during
+  highly concurrent processing on multi-processor machines.
+
+- Linux and zLinux Java Server only, fix segmentation violation crash 
+  during highly concurrent processing on multi-processor machines along
+  with server tracing on. Tracing set to complete with multiple requests
+  from the same client can cause this issue.
+
+- Linux, zLinux and Windows Java Server only, allow Ivory Server
+  to run an additional 30 days past license key expiration. Log 
+  warning messages during extended 30 day period.
+
+- Linux, zLinux and Windows Java Server only, add license key 
+  expiration month and year to ivp.srv results.
+
+- Linux, zLinux and Windows Java Server only, add <display-name>
+  element to all web.xml files.
+
+- Linux, zLinux and Windows Java Server only, add servlet mappings
+  for /verify, /manage and /license to all web.xml files.
+
+- Linux, zLinux and Windows Java Server only, add new Delegate
+  callback functions getIvoryProperties and
+  getIvoryPropertiesErrorMsg.
+
+- Linux, zLinux and Windows Java Server only, fix ignored
+  Callable Services overrides ivoryTraceMaxCDataLen,
+  ivoryForceIVS and ivoryTraceOverride.
+
+- Change default ivoryTraceMaxCDataLen value from 0 to 2048.
+
+- Add message to trace whenever ivoryTraceMaxCDataLen causes
+  the suppression of data being written to the trace.
+
+Build 4.3.1.20110607
+
+- Fix multi-threaded issue where generated IMS Connect client ID
+  is non-unique.
+
+- Fix ArrayIndexOutOfBoundsException when IMS Connect disconnects
+  the socket without sending data first.
+
+Build 4.3.1.20110315
+
+- Add mixed mode Link3270 support.
+
+- Add JSON support.
+
+- Add support for service level work variable initialization.
+
+- Add 64 bit Linux runtime.
+
+- Linux, zLinux and Windows Java Server only, add IBM
+  WebSphere MQ Custom Delegate.
+
+- Add Host Code Page to list of character encodings supported in 
+  custom delegates and the Ivory supplied delegate "Associate
+  Copybooks with Blob."
+
+- Add Ivory tracing to custom delegate callback functions.
+
+- Linux, zLinux and Windows Java Server only, add getHostCharset
+  to custom delegate callback functions.
+
+- Fix bug introduced in build 4.3.0.20101010 where a malformed URL or 
+  non text/xml content type returned by web service client causes crash.
+
+- Fix bug introduced in build 4.3.0.20101010 where web service client
+  output minimum occurrences was being applied incorrectly, This would
+  happen when a fault or network error occurred.
+
+- Fix bug introduced in build 4.3.0.20101010 where Ivory Server will
+  crash if a project is executed which was deployed using a Studio
+  prior to the 4.0.0.20080807 build.
+
+- Relaxed restriction of web service client URLs having to start with
+  lowercase http or https. http/https are now case insensitive.
+
+- Add Expires: -1 HTTP header to all Ivory Server responses.
+
+- Update Web Service Client request HTTP headers to match current
+  accepted types. Supress SOAPAction header when not needed.
+
+- zLinux 64 bit only, method of structure packing changed for better
+  performance.
+
+Build 4.3.0.20110207
+
+- Add new version of Ivory Server, Ivory Server (Java) for Windows.
+
+Build 4.3.0.20101010
+
+- Add support for web application level work variable initialization.
+  New property ivoryWebAppIVW added to ivory.properties, web.xml and
+  web.config.
+
+- Automatically remove leading and trailing blanks before converting
+  values to numeric types. Should reduce occurrences of SOAP Fault 1513.
+
+- Add proxy support for web service client requests.
+
+- Add "Response Wrapper Present" property to Web Service Client Point
+  Node when REST interface is being used.
+
+- Add "Non-SOAP Fault Status Code Work Variable" property to Execute
+  Web Service Client Node.
+
+- Add embedded work variable support to Response XML Stylesheet URI
+  property.
+
+- Improved message text for SOAP Faults 1569 and 1674 and added debug
+  detail element content.
+
+- Fix passthru authorization in Web Service Client Point Nodes when
+  running within Callable Services.
+
+- Correct problem caused in Ivory Server 4.3.0.20100719  which broke
+  looping and connectors with Web Service Client Point Nodes.
+
+- Remove "result =" from <AdditionalInformation> trace elements when 
+  there is no Function Node result
+
+Build 4.3.0.20100719
+
+- Add tcExpress support.
+
+- zLinux only, fix IMS Point Node field Format Name Work Variable not
+  being populated correctly.
+
+- Add REST support.
+ 
+- Add "Format Decimal Digits" property to float and double SOAP 
+  Outputs and Web Service Client Inputs.
+
+- Add "Preserve Empty/Blank Elements" property to SOAP Output 
+  arrays and Web Service Client Input arrays.
+
+- Add "Preserve Empty/Blank Movements" property to non-array string 
+  element SOAP Outputs and Web Service Client Inputs.
+
+- Add "Preserve Trailing Blanks" property to string element SOAP 
+  Outputs and Web Service Client Inputs.
+
+Build 4.2.0.20100715
+
+- Linux and zLinux, minimum level of JRE moved from 1.4.2 to 1.5.0.
+
+- Linux and zLinux, fix conversion to IBM hexadecimal floating point 
+  so COMP-1 and COMP-2 values mirror those in CICS and z/OS.
+
+- Windows only, fix exception when Web Service Client Point Node
+  URI value has embedded work variable for protocol://host:port
+  and work variable has no value.
+
+- Add new Function Node function "Record Value in Log".
+
+- Add work variable array initialization support in .ivw file.
+
+- Add support for "Next Trans StartCode" property in 3270 Action
+  Node for Native Mode Link3270
+
+- Fix outputting of floats and doubles to mirror values generated
+  in CICS and z/OS.
+
+Build 4.2.0.20100507
+
+- Begin supplying changelog.txt.
+
+- Linux and zLinux, add ivory.properties. Allows web.xml settings to 
+  be overridden.
+
+- Linux and zLinux, add symbolic links for bin and ivoryws
+  directories. Simplifies web.xml and ivory.properties settings.
+
+- Linux and zLinux, move Ivory Server error messages to servlet log  
+  insteadof native standard out log. Messages receive timestamps within
+  the servlet log.
+
+- zLinux, fix 64 bit related callable services issue. Response is being
+  written to the beginning of the callable services return area
+  instead of an offset within the return area.
+
+Build 4.2.0.20100301
+
+- Add native mode Link3270 support.
+
+- Add Custom Delegate support. 
+
+- Add new Decision Node operator "Check 3270 Modified Extended Attribute".
+
+- Add new Function Node function "Get Number of 3270 Fields With 
+  Selected Attribute".
+
+- Add new Function Node function "Get Number of 3270 Fields With Modified 
+  Selected Extended Attribute".
+
+- Add new Function Node function "Get List of 3270 Fields With Selected 
+  Attribute".
+
+- Add new Function Node function "Get List of 3270 Fields With Modified 
+  Selected Extended Attribute".
+
+- Fix incorrect SOAP Fault format with RPC encoded response Fault.
+
+- Fix crash in Ivory Server which causes WebSphere to also crash.
+
+- Fix condition where output only empty containers cause no other
+  container to be read.
+
+- Add CTG gateway check to installation verification program ivp.srv.
+
+- Relax SOAP Fault condition when output only container is empty
+  to match CICS behavior.
+
+- Allow channel/containers applications via CTG to have output only
+  containers. Do not require input or input/output containers. 
+
+- Fix Loop Node max iterations not checked in certain 3270 projects.                      
+
+- Fix issue where Link3270 initial values are incorrect.
+
+- Add BMS Map Group Feature runtime support .                           
+
+Build 4.1.2.20100121
+
+- Allow "id" attributes to have non-unique values in     
+  document literal and document literal wrapped envelopes.
+
+Build 4.1.2.20091005
+
+- Conversational mode transactions were not being handled
+  correctly in Link3270 projects.
+
+- Web Service Client Point Nodes broken in build 4.1.2.20090619, 
+  they have been fixed and are working again.
+
+Build 4.1.2.20090810
+
+- The contents of the COMMAREA and Containers are now dumped to the 
+  Ivory Server trace when tracing is set to Complete.
+  This may be controlled by server setting ivoryTraceMaxCDataLen. 
+
+Build 4.1.2.20090714
+- In the event that a field with FSET turned on, it was 
+  possible the the MDT could be reset if the field was EraseEOFed or
+  the field had no initial data and the application did not reset the 
+  attribute byte in the ADS from the x'80'.  The Link3270 code will
+  now recognize this and not improperly reset the attribute byte 
+  incorrectly.
+
+Build 4.1.2.20090619
+
+- Properly simulate an EraseEOF action when doing Link3270 processing
+
+Build 4.1.1.20090422
+
+- Fix foreign characters possibly truncated in Link3270 projects.
+
+- Fix packed decimal movement problem in Java based Ivory Servers.
+
+- Fix issue where ECI mirror transid not always being used in
+  muli-LINK Point Node diagrams.
+
+Build 4.1.1.20090327
+
+- Add Data Access JDBC support to Java based Ivory Servers.
+
+- Add network name, terminal name and terminal model to fields
+  which may be set in a LINK3270 request.
+
+- Allow text/html as content-type in web service client responses
+  even though text/xml is being returned.
+
+- Updates to resolve a storage violation when converting  numeric data to 
+  ASCII strings.
+
+Build 4.1.0.20090212
+
+- Add external work variable initialization.
+
+Build 4.0.0.20081218
+
+- Reorder generated SOAP Faults to match standard, faultcode followed 
+  by faultstring.
+
+Build 4.0.0.20081024
+  
+- Add support for codepages ISO-8859-1 and US-ASCII for SOAP requests and 
+  responses, including Web Service Client request and responses.
+  
+- Add support for complex child elements in the details element in user 
+  defined SOAP faults.
+    
+- Write exact response envelope from Web Service Client requests to trace 
+  when tracing is set to complete.
+  
+- Fix bug where work variable arrays not at root level were always returning 
+  last value set.
+  
+- Fix abend which could only occur in build 4.0.0.20080915 when zero fill 
+  digits option in Studio is set on and a SOAP input decimal element has its 
+  constraints set to "None".
+
+Build 4.0.0.20080915
+  
+- Fill decimal digits based on new Studio option.      
+
+- Ivory generated namespace is no longer declared in SOAP response if it is not 
+  referenced within the SOAP body.
+
+- Do not generate a SOAP Fault when SOAP input parent element is nil and child 
+  elements are marked as mandatory.             
+
+- Do not generate a SOAP Fault when SOAP output parent element is optional and 
+  child element arrays have minOccurs > 0 but no movements have been performed 
+  to any element within the parent element's hierarchy.             
+
+- Remove optional elements from SOAP response when attribute values which are 
+  not set are defaulted to 0.      
+
+Build 4.0.0.20080807
+
+- The population of an initial input vector for 3270 Process nodes did not 
+  function as documented. The code will check the initial input data and check 
+  to see if it starts with the transation code, if it does not, then the code 
+  will prefix the initial input data with the transaction code.
+    
+- Add support for handling applications which issue a SEND TEXT message on 
+  termination in Link3270 projects.             
+  
+- Add support for custom wrapper element namespaces and names. New properties 
+  in Web Service Operation Node.             
+  
+- Add support for embedded static XML in SOAP output.    
+  
+Build 4.0.0.20080625
+
+- Server now uses .ivx file for server instructions if .ivx file is present. 
+  Optionally shut off use of .ivx files via the new server file setting
+  ivoryForceIVS boolean.
+
+- Added new server file setting
+  ivoryTraceOverride=0|1|2 (0 - ignore, 1 - off 2 - complete).
+
+- Continue processing with tracing off if tracing was set on and the trace 
+  file cannot be opened. Old behavior was to terminate execution and SOAP 
+  Fault with a 1530 Fault Code.
+
+- Added support to the Link3270 interface for user applications which issues a 
+  RECEIVE for data which had been sent using a SEND MAP. Mapsets must be 
+  reimported in Ivory Studio to activate this feature.
+
+Build 4.0.0.20080530
+
+- Add Formatted Conversion and Right Justify Function Node functions.
+
+- Add Decision Node operators "Is Nulls" and "Is Blanks".
+
+- Add Basic Authentication passthru in Callable Services.
+
+- Add TraceOverride .ini setting.
+
+- Changed Connector Nodes to be more flexible from where they may be 
+  connected from.
+
+- Fix memory leak during Move To Work Variable when target work variable is 
+  an array element.

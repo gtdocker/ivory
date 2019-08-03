@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE java-wsdl-mapping PUBLIC "-//IBM Corporation, Inc.//DTD J2EE JAX-RPC mapping 1.0//EN" "http://www.ibm.com/webservices/dtd/j2ee_jaxrpc_mapping_1_0.dtd">
+
+   <java-wsdl-mapping id="JavaWSDLMapping_1156165963726">
+      <package-mapping id="PackageMapping_1156165963726">
+         <package-type>Ivory</package-type>
+         <namespaceURI>urn:Ivory</namespaceURI>
+      </package-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1156165963736">
+         <class-type>Ivory.XPlainField</class-type>
+         <root-type-qname id="RootTypeQname_1156165963746">
+            <namespaceURI>urn:Ivory</namespaceURI>
+            <localpart>XPlainField</localpart>
+         </root-type-qname>
+         <qname-scope>complexType</qname-scope>
+         <variable-mapping id="VariableMapping_1156165963746">
+            <java-variable-name>position</java-variable-name>
+            <xml-element-name>position</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963747">
+            <java-variable-name>attbProtected</java-variable-name>
+            <xml-element-name>attbProtected</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963748">
+            <java-variable-name>attbModified</java-variable-name>
+            <xml-element-name>attbModified</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963749">
+            <java-variable-name>text</java-variable-name>
+            <xml-element-name>text</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963750">
+            <java-variable-name>attbBits</java-variable-name>
+            <xml-element-name>attbBits</xml-element-name>
+         </variable-mapping>
+      </java-xml-type-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1156165963746">
+         <class-type>Ivory.XPlainVerifyItem</class-type>
+         <root-type-qname id="RootTypeQname_1156165963747">
+            <namespaceURI>urn:Ivory</namespaceURI>
+            <localpart>XPlainVerifyItem</localpart>
+         </root-type-qname>
+         <qname-scope>complexType</qname-scope>
+         <variable-mapping id="VariableMapping_1156165963751">
+            <java-variable-name>mapName</java-variable-name>
+            <xml-element-name>mapName</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963752">
+            <java-variable-name>screenSize</java-variable-name>
+            <xml-element-name>screenSize</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963753">
+            <java-variable-name>attributeNumber</java-variable-name>
+            <xml-element-name>attributeNumber</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963754">
+            <java-variable-name>attributeOffsetsString</java-variable-name>
+            <xml-element-name>attributeOffsetsString</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963755">
+            <java-variable-name>textItemsString</java-variable-name>
+            <xml-element-name>textItemsString</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963756">
+            <java-variable-name>sendNumber</java-variable-name>
+            <xml-element-name>sendNumber</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963757">
+            <java-variable-name>instanceValid</java-variable-name>
+            <xml-element-name>instanceValid</xml-element-name>
+         </variable-mapping>
+      </java-xml-type-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1156165963756">
+         <class-type>Ivory.XPlainVerifyStatusItem[]</class-type>
+         <root-type-qname id="RootTypeQname_1156165963756">
+            <namespaceURI>urn:Ivory</namespaceURI>
+            <localpart>XPlainVerifyStatusItem[unbounded]</localpart>
+         </root-type-qname>
+         <qname-scope>complexType</qname-scope>
+      </java-xml-type-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1156165963757">
+         <class-type>java.lang.String</class-type>
+         <root-type-qname id="RootTypeQname_1156165963757">
+            <namespaceURI>http://www.w3.org/2001/XMLSchema</namespaceURI>
+            <localpart>string</localpart>
+         </root-type-qname>
+         <qname-scope>simpleType</qname-scope>
+      </java-xml-type-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1156165963758">
+         <class-type>Ivory.XPlainVerifyStatusItem</class-type>
+         <root-type-qname id="RootTypeQname_1156165963758">
+            <namespaceURI>urn:Ivory</namespaceURI>
+            <localpart>XPlainVerifyStatusItem</localpart>
+         </root-type-qname>
+         <qname-scope>complexType</qname-scope>
+         <variable-mapping id="VariableMapping_1156165963758">
+            <java-variable-name>mapName</java-variable-name>
+            <xml-element-name>mapName</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963759">
+            <java-variable-name>screenSizeStatus</java-variable-name>
+            <xml-element-name>screenSizeStatus</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963760">
+            <java-variable-name>attributeNumberStatus</java-variable-name>
+            <xml-element-name>attributeNumberStatus</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963761">
+            <java-variable-name>attributeOffsetsStatus</java-variable-name>
+            <xml-element-name>attributeOffsetsStatus</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963762">
+            <java-variable-name>textItemsStatus</java-variable-name>
+            <xml-element-name>textItemsStatus</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963763">
+            <java-variable-name>sendNumberStatus</java-variable-name>
+            <xml-element-name>sendNumberStatus</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963764">
+            <java-variable-name>instanceValid</java-variable-name>
+            <xml-element-name>instanceValid</xml-element-name>
+         </variable-mapping>
+      </java-xml-type-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1156165963759">
+         <class-type>Ivory.XPlainVerifyItem[]</class-type>
+         <root-type-qname id="RootTypeQname_1156165963759">
+            <namespaceURI>urn:Ivory</namespaceURI>
+            <localpart>XPlainVerifyItem[unbounded]</localpart>
+         </root-type-qname>
+         <qname-scope>complexType</qname-scope>
+      </java-xml-type-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1156165963760">
+         <class-type>Ivory.XPlainVerifyStatus</class-type>
+         <root-type-qname id="RootTypeQname_1156165963760">
+            <namespaceURI>urn:Ivory</namespaceURI>
+            <localpart>XPlainVerifyStatus</localpart>
+         </root-type-qname>
+         <qname-scope>complexType</qname-scope>
+         <variable-mapping id="VariableMapping_1156165963765">
+            <java-variable-name>selectedItemIndex</java-variable-name>
+            <xml-element-name>selectedItemIndex</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963816">
+            <java-variable-name>XPlainVerifyStatusItem</java-variable-name>
+            <xml-element-name>XPlainVerifyStatusItem</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963817">
+            <java-variable-name>requestTimedout</java-variable-name>
+            <xml-element-name>requestTimedout</xml-element-name>
+         </variable-mapping>
+      </java-xml-type-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1156165963816">
+         <class-type>int</class-type>
+         <root-type-qname id="RootTypeQname_1156165963816">
+            <namespaceURI>http://www.w3.org/2001/XMLSchema</namespaceURI>
+            <localpart>int</localpart>
+         </root-type-qname>
+         <qname-scope>simpleType</qname-scope>
+      </java-xml-type-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1156165963817">
+         <class-type>Ivory.XPlainScreen</class-type>
+         <root-type-qname id="RootTypeQname_1156165963817">
+            <namespaceURI>urn:Ivory</namespaceURI>
+            <localpart>XPlainScreen</localpart>
+         </root-type-qname>
+         <qname-scope>complexType</qname-scope>
+         <variable-mapping id="VariableMapping_1156165963818">
+            <java-variable-name>size</java-variable-name>
+            <xml-element-name>size</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963819">
+            <java-variable-name>XPlainField</java-variable-name>
+            <xml-element-name>XPlainField</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963820">
+            <java-variable-name>unformatted</java-variable-name>
+            <xml-element-name>unformatted</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963821">
+            <java-variable-name>instanceValid</java-variable-name>
+            <xml-element-name>instanceValid</xml-element-name>
+         </variable-mapping>
+      </java-xml-type-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1156165963818">
+         <class-type>Ivory.XPlainContainer</class-type>
+         <root-type-qname id="RootTypeQname_1156165963818">
+            <namespaceURI>urn:Ivory</namespaceURI>
+            <localpart>XPlainContainer</localpart>
+         </root-type-qname>
+         <qname-scope>complexType</qname-scope>
+         <variable-mapping id="VariableMapping_1156165963822">
+            <java-variable-name>syncID</java-variable-name>
+            <xml-element-name>syncID</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963823">
+            <java-variable-name>requestURI</java-variable-name>
+            <xml-element-name>requestURI</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963824">
+            <java-variable-name>clientID</java-variable-name>
+            <xml-element-name>clientID</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963825">
+            <java-variable-name>connected</java-variable-name>
+            <xml-element-name>connected</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963826">
+            <java-variable-name>initParams</java-variable-name>
+            <xml-element-name>initParams</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963827">
+            <java-variable-name>verifyParams</java-variable-name>
+            <xml-element-name>verifyParams</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963828">
+            <java-variable-name>verifyStatus</java-variable-name>
+            <xml-element-name>verifyStatus</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963829">
+            <java-variable-name>screen</java-variable-name>
+            <xml-element-name>screen</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963830">
+            <java-variable-name>cursorPosition</java-variable-name>
+            <xml-element-name>cursorPosition</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963831">
+            <java-variable-name>aidKey</java-variable-name>
+            <xml-element-name>aidKey</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963832">
+            <java-variable-name>traceData</java-variable-name>
+            <xml-element-name>traceData</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963833">
+            <java-variable-name>traceEnabled</java-variable-name>
+            <xml-element-name>traceEnabled</xml-element-name>
+         </variable-mapping>
+      </java-xml-type-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1156165963826">
+         <class-type>Ivory.XPlainField[]</class-type>
+         <root-type-qname id="RootTypeQname_1156165963826">
+            <namespaceURI>urn:Ivory</namespaceURI>
+            <localpart>XPlainField[unbounded]</localpart>
+         </root-type-qname>
+         <qname-scope>complexType</qname-scope>
+      </java-xml-type-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1156165963827">
+         <class-type>Ivory.XPlainInitParams</class-type>
+         <root-type-qname id="RootTypeQname_1156165963827">
+            <namespaceURI>urn:Ivory</namespaceURI>
+            <localpart>XPlainInitParams</localpart>
+         </root-type-qname>
+         <qname-scope>complexType</qname-scope>
+         <variable-mapping id="VariableMapping_1156165963834">
+            <java-variable-name>host</java-variable-name>
+            <xml-element-name>host</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963835">
+            <java-variable-name>port</java-variable-name>
+            <xml-element-name>port</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963836">
+            <java-variable-name>secured</java-variable-name>
+            <xml-element-name>secured</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963837">
+            <java-variable-name>model</java-variable-name>
+            <xml-element-name>model</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963838">
+            <java-variable-name>codePage</java-variable-name>
+            <xml-element-name>codePage</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963839">
+            <java-variable-name>timeoutMins</java-variable-name>
+            <xml-element-name>timeoutMins</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963840">
+            <java-variable-name>luName</java-variable-name>
+            <xml-element-name>luName</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963841">
+            <java-variable-name>unbindClear</java-variable-name>
+            <xml-element-name>unbindClear</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963842">
+            <java-variable-name>instanceValid</java-variable-name>
+            <xml-element-name>instanceValid</xml-element-name>
+         </variable-mapping>
+      </java-xml-type-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1156165963828">
+         <class-type>Ivory.XPlainPosition</class-type>
+         <root-type-qname id="RootTypeQname_1156165963828">
+            <namespaceURI>urn:Ivory</namespaceURI>
+            <localpart>XPlainPosition</localpart>
+         </root-type-qname>
+         <qname-scope>complexType</qname-scope>
+         <variable-mapping id="VariableMapping_1156165963843">
+            <java-variable-name>row</java-variable-name>
+            <xml-element-name>row</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165963844">
+            <java-variable-name>column</java-variable-name>
+            <xml-element-name>column</xml-element-name>
+         </variable-mapping>
+      </java-xml-type-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1156165964016">
+         <class-type>boolean</class-type>
+         <root-type-qname id="RootTypeQname_1156165964026">
+            <namespaceURI>http://www.w3.org/2001/XMLSchema</namespaceURI>
+            <localpart>boolean</localpart>
+         </root-type-qname>
+         <qname-scope>simpleType</qname-scope>
+      </java-xml-type-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1156165964026">
+         <class-type>Ivory.XPlainVerify</class-type>
+         <root-type-qname id="RootTypeQname_1156165964027">
+            <namespaceURI>urn:Ivory</namespaceURI>
+            <localpart>XPlainVerify</localpart>
+         </root-type-qname>
+         <qname-scope>complexType</qname-scope>
+         <variable-mapping id="VariableMapping_1156165964026">
+            <java-variable-name>XPlainVerifyItem</java-variable-name>
+            <xml-element-name>XPlainVerifyItem</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165964027">
+            <java-variable-name>timeoutSecs</java-variable-name>
+            <xml-element-name>timeoutSecs</xml-element-name>
+         </variable-mapping>
+      </java-xml-type-mapping>
+      <java-xml-type-mapping id="JavaXMLTypeMapping_1156165964027">
+         <class-type>Ivory.XPlainSize</class-type>
+         <root-type-qname id="RootTypeQname_1156165964028">
+            <namespaceURI>urn:Ivory</namespaceURI>
+            <localpart>XPlainSize</localpart>
+         </root-type-qname>
+         <qname-scope>complexType</qname-scope>
+         <variable-mapping id="VariableMapping_1156165964028">
+            <java-variable-name>width</java-variable-name>
+            <xml-element-name>width</xml-element-name>
+         </variable-mapping>
+         <variable-mapping id="VariableMapping_1156165964029">
+            <java-variable-name>height</java-variable-name>
+            <xml-element-name>height</xml-element-name>
+         </variable-mapping>
+      </java-xml-type-mapping>
+      <service-interface-mapping id="ServiceInterfaceMapping_1156165964126">
+         <service-interface>Ivory.Gt3270Ws_Service</service-interface>
+         <wsdl-service-name id="WSDLServiceName_1156165964126">
+            <namespaceURI>urn:Ivory</namespaceURI>
+            <localpart>gt3270ws</localpart>
+         </wsdl-service-name>
+         <port-mapping id="PortMapping_1156165964136">
+            <port-name>gt3270ws</port-name>
+            <java-port-name>gt3270ws</java-port-name>
+         </port-mapping>
+      </service-interface-mapping>
+      <service-endpoint-interface-mapping id="ServiceEndpointInterfaceMapping_1156165964136">
+         <service-endpoint-interface>Ivory.Gt3270Ws_Port</service-endpoint-interface>
+         <wsdl-port-type id="WSDLPortType_1156165964136">
+            <namespaceURI>urn:Ivory</namespaceURI>
+            <localpart>gt3270ws</localpart>
+         </wsdl-port-type>
+         <wsdl-binding id="WSDLBinding_1156165964136">
+            <namespaceURI>urn:Ivory</namespaceURI>
+            <localpart>gt3270ws</localpart>
+         </wsdl-binding>
+         <service-endpoint-method-mapping id="ServiceEndpointMethodMapping_1156165964146">
+            <java-method-name>process</java-method-name>
+            <wsdl-operation>process</wsdl-operation>
+            <wrapped-element></wrapped-element>
+            <method-param-parts-mapping id="MethodParamPartsMapping_1156165964156">
+               <param-position>0</param-position>
+               <param-type>Ivory.XPlainContainer</param-type>
+               <wsdl-message-mapping id="WSDLMessageMapping_1156165964166">
+                  <wsdl-message id="WSDLMessage_1156165964166">
+                     <namespaceURI>urn:Ivory</namespaceURI>
+                     <localpart>processSoapIn</localpart>
+                  </wsdl-message>
+                  <wsdl-message-part-name>contParam</wsdl-message-part-name>
+                  <parameter-mode>IN</parameter-mode>
+               </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping id="WSDLReturnValueMapping_1156165964166">
+               <method-return-value>Ivory.XPlainContainer</method-return-value>
+               <wsdl-message id="WSDLMessage_1156165964167">
+                  <namespaceURI>urn:Ivory</namespaceURI>
+                  <localpart>processSoapOut</localpart>
+               </wsdl-message>
+               <wsdl-message-part-name>processResult</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+         </service-endpoint-method-mapping>
+         <service-endpoint-method-mapping id="ServiceEndpointMethodMapping_1156165964166">
+            <java-method-name>destroy</java-method-name>
+            <wsdl-operation>destroy</wsdl-operation>
+            <wrapped-element></wrapped-element>
+            <method-param-parts-mapping id="MethodParamPartsMapping_1156165964166">
+               <param-position>0</param-position>
+               <param-type>Ivory.XPlainContainer</param-type>
+               <wsdl-message-mapping id="WSDLMessageMapping_1156165964167">
+                  <wsdl-message id="WSDLMessage_1156165964168">
+                     <namespaceURI>urn:Ivory</namespaceURI>
+                     <localpart>destroySoapIn</localpart>
+                  </wsdl-message>
+                  <wsdl-message-part-name>contParam</wsdl-message-part-name>
+                  <parameter-mode>IN</parameter-mode>
+               </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping id="WSDLReturnValueMapping_1156165964167">
+               <method-return-value>Ivory.XPlainContainer</method-return-value>
+               <wsdl-message id="WSDLMessage_1156165964169">
+                  <namespaceURI>urn:Ivory</namespaceURI>
+                  <localpart>destroySoapOut</localpart>
+               </wsdl-message>
+               <wsdl-message-part-name>destroyResult</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+         </service-endpoint-method-mapping>
+         <service-endpoint-method-mapping id="ServiceEndpointMethodMapping_1156165964167">
+            <java-method-name>initialize</java-method-name>
+            <wsdl-operation>initialize</wsdl-operation>
+            <wrapped-element></wrapped-element>
+            <method-param-parts-mapping id="MethodParamPartsMapping_1156165964167">
+               <param-position>0</param-position>
+               <param-type>Ivory.XPlainContainer</param-type>
+               <wsdl-message-mapping id="WSDLMessageMapping_1156165964168">
+                  <wsdl-message id="WSDLMessage_1156165964170">
+                     <namespaceURI>urn:Ivory</namespaceURI>
+                     <localpart>initializeSoapIn</localpart>
+                  </wsdl-message>
+                  <wsdl-message-part-name>contParam</wsdl-message-part-name>
+                  <parameter-mode>IN</parameter-mode>
+               </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping id="WSDLReturnValueMapping_1156165964168">
+               <method-return-value>Ivory.XPlainContainer</method-return-value>
+               <wsdl-message id="WSDLMessage_1156165964171">
+                  <namespaceURI>urn:Ivory</namespaceURI>
+                  <localpart>initializeSoapOut</localpart>
+               </wsdl-message>
+               <wsdl-message-part-name>initializeResult</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+         </service-endpoint-method-mapping>
+      </service-endpoint-interface-mapping>
+   </java-wsdl-mapping>

@@ -1,0 +1,639 @@
+Installing Ivory Server (Java) for Linux
+
+This document contains instructions on how to install or upgrade Ivory Server 
+(Java) for Linux. 
+
+Ivory Server (Java) for Linux is packaged in a single .tar file named 
+ivoryserver4j.build.tar where "build" is the current build version number.
+
+This document addresses the following topics:
+  -- Requirements
+  -- New Installation
+  -- Upgrade Installation
+  -- WebSphere Notes 
+
+
+
+Requirements
+------------
+
+Ivory Server (Java) for Linux executes as a Java servlet and requires a 
+container Java application server or servlet engine that meets the following 
+minimum requirements:
+
+  -- Java Virtual Machine J2RE 1.5.0 or above
+
+  -- Application server or servlet engine supporting the Java servlet API 2.3 
+     specification or above.
+
+  --(optional) IBM CICS Transaction Gateway 6.0-8.0; required if Ivory 
+     projects access host CICS Commarea and/or Channels and Containers
+     based resources.
+
+Ivory Server (Java) for Linux has been tested with (and is supported for) the 
+following containers:
+
+  -- IBM WebSphere Application Server 5.1-7.0
+  -- BEA WebLogic Application Server 9.0-10.3
+  -- Apache Tomcat Servlet Engine 4.1.39-7.0.16
+  -- Oracle Application Server Containers for J2EE 10g (10.1.2.0.0)
+  -- JBOSS 5.0.1
+
+Ivory Server (Java) for Linux will execute under any version of Intel 32 bit 
+or 64 bit Linux that supports an appropriate application server or servlet 
+engine specified above and meets the suggested following minimum levels:
+  
+  -- Linux Kernel 2.6.9-67
+  -- libstdc++.so.6
+  -- libcrypt.so.1
+  -- libgcc_s.so.1
+  -- libc.so.6
+  -- libm.so.6
+
+Ivory Server (Java) for Linux will execute in either 32 bit or 64 bit mode.
+This is determined by the Java Virtual Machine used to execute the servlet
+container. The web.xml parameter ivoryNativeLibrary may need to be modified
+based on addressing mode. Use libIvoryServer4J.so for 32 bit mode and 
+libIvoryServer4J64.so for 64 bit mode.
+
+Note: In this document, the term servlet container refers to the application 
+server or servlet engine that you have chosen.
+
+New Installation
+----------------
+
+Follow these instructions to install Ivory Server (Java) for Linux for the 
+first time. 
+
+1. Sign on to your Linux system with root level authority.
+
+2. Place the installation tar file in the /opt directory and extract it. Issue the 
+following commands replacing "build" with the appropriate build version:
+
+     cd /opt 
+     tar -xvf ivoryserver4j.build.tar
+
+Note: You can install Ivory Server under a different directory structure, but 
+you will then need to adjust the appropriate web.xml or ivory.properties
+settings later in the installation. 
+
+3. Copy the key.lic (license) file (obtained from GT Software) into the directory 
+/opt/gtsoftware/ivoryserver4j/license, which was created during the .tar extract 
+process. 
+
+4. Issue the commands listed below to create the project deploy directory. Ivory 
+Studio users will deploy project files to the host Linux system via FTP or SFTP.
+The project files can reside in any directory structure; the default container 
+directory is /var/ivory. 
+
+     cd /var 
+     mkdir ivory
+
+You must give all Ivory Studio users read-write directory level authority to 
+/var/ivory so that they can create subdirectories and files within the 
+/var/ivory directory. 
+
+You must also configure the Linux FTP/SFTP server to allow Ivory Studio users to 
+issue the change directory command outside their home directory on the Linux 
+system.
+
+Optionally, you can create a single user ID on the Linux system for all Ivory 
+Studio users: for example "ivoryuser". All users then sign on to FTP/SFTP with 
+the ivoryuser ID and store the project files in a directory such as 
+/home/ivoryuser/ivory. All Ivory Studio users would need to configure their FTP 
+profile Deploy Path property to /home/ivoryuser/ivory. In this case, it is also 
+necessary to modify the Ivory Server web.xml; set the context parameter 
+"ivoryDeployDir" to /home/ivoryuser/ivory.
+
+5. Install the Java Web application into your servlet container. This procedure 
+varies by servlet container. The file web.xml contains parameters necessary for
+Ivory Server to run properly. These parameters may be modified within web.xml
+or may be overridden using an external file named ivory.properties. If you will
+be installing the Java Web application using one of the supplied war files and
+you need to modify any of the parameters below, using ivory.properties is a
+good alternative. Please see the section "Using ivory.properties" for more
+details. The following are the web.xml parameters:
+
+   <context-param> 
+     <param-name>ivoryNativeLibrary</param-name> 
+     <param-value>/opt/gtsoftware/ivoryserver4j/bin/libIvoryServer4J.so</param-value> 
+   </context-param> 
+   <context-param> 
+     <param-name>ivoryKeyLicFile</param-name> 
+     <param-value>/opt/gtsoftware/ivoryserver4j/license/key.lic</param-value> 
+   </context-param> 
+   <context-param> 
+     <param-name>ivoryDeployDir</param-name> 
+     <param-value>/var/ivory/</param-value> 
+   </context-param> 
+   <context-param> 
+     <param-name>ivoryHostCodepage</param-name> 
+     <param-value>37</param-value> 
+   </context-param>
+   <context-param>
+     <param-name>ivoryCTGUrl</param-name>
+     <param-value></param-value>
+   </context-param>
+   <context-param>
+     <param-name>ivoryForceIVS</param-name>
+     <param-value>false</param-value>
+   </context-param>
+   <context-param>
+     <param-name>ivoryTraceOverride</param-name>
+     <param-value>0</param-value>
+   </context-param>
+   <context-param>
+     <param-name>ivoryTraceMaxCDataLen</param-name>
+     <param-value>0</param-value>
+   </context-param>
+   <context-param>
+     <param-name>ivoryDataAccessConfigDir</param-name>
+     <param-value></param-value>
+   </context-param>
+   <context-param>
+     <param-name>ivoryInternalWebServicesSourceDir</param-name>
+     <param-value>/opt/gtsoftware/ivoryserver4j/ivoryiws/</param-value>
+   </context-param>
+   <context-param>
+     <param-name>ivoryWebAppIVW</param-name>
+     <param-value></param-value>
+   </context-param>
+
+The web.xml parameters to consider are described below.
+
+ivoryNativeLibrary
+
+     Identifies the location of the Ivory Server native library code; Ivory 
+     Server will attempt to directly load this library from the location 
+     specified. 
+     
+     If you installed Ivory Server in the default directory structure 
+     (/opt/gtsoftware/...), you do not need to change this parameter. 
+          
+ivoryKeyLicFile
+
+     Identifies the location of the Ivory license file. 
+     
+     If you installed Ivory Server in the default directory structure 
+     (/opt/gtsoftware/...), you do not need to change this parameter.
+
+ivoryDeployDir
+
+     Identifies the location of deployed Ivory project files. 
+     
+     If Ivory project files will be contained in the /var/ivory directory, you 
+     do not need to change this parameter.
+
+ivoryHostCodepage
+
+     Identifies the host system codepage.
+     
+     If your host systems (CICS, IMS) use US-EBCDIC codepage 37, you do not 
+     need to change this parameter.
+
+ivoryCTGUrl
+
+     Identifies the URL to use when making IBM CICS Transaction Gateway
+     requests. This value is required when IBM CICS Transaction Gateway is
+     running outside the servlet container. The default empty value 
+     indicates ctgserver.jar is accessible within the servlet container
+     and all IBM CICS Transaction Gateway requests are to be made locally.
+
+ivoryForceIVS
+
+     Indicates whether the old style textual xml server instructions should
+     be used instead of the newer better performing binary formatted server
+     instructions. Old style textual xml server instructions are contained
+     in files with the .ivs extension. Setting the parameter value to true
+     will cause Ivory Server to use the textual xml server instructions.
+     The default value is false.
+
+ivoryTraceOverride
+
+     Overrides the project level Server Side Tracing property contained
+     in the Start Node. Valid values are as follows:
+     
+     0 - No override, use project level setting.
+     1 - Override, turn tracing off.
+     2 - Override, turn Complete tracing on for all project executions.
+ 
+ivoryTraceMaxCDataLen
+
+     When server side tracing is set to complete data areas such as CICS
+     COMMAREA storage are written to the trace in CDATA sections.
+     ivoryTraceMaxCDataLen may be used to control the amount of
+     storage to write to the trace. The value of ivoryTraceMaxCDataLen
+     is applied to each separate storage area. Valid values are as follows:
+     
+     -1  - Do not write any storage areas to the trace.
+      0  - Write out complete storage areas to the trace, regardless of size.
+     val - Limit the size of the data written to the trace to "val" where
+           val is an integer value.
+ 
+ivoryDataAccessConfigDir
+
+     Identifies the directory containing configuration files used by
+     DataAccess. Usually this is the same directory which contains the
+     DataAccess JDBC driver .jar file. This parameter is necessary if you 
+     will be executing Ivory projects which contain DataAccess Ivory Supplied 
+     Delegate Nodes.
+     
+ivoryInternalWebServicesSourceDir
+
+     Identifies the root directory containing the installer versions of the
+     deployable internal Web service files.
+
+     If you installed Ivory Server in the default directory structure 
+     (/opt/gtsoftware/...), you do not need to change this parameter. 
+
+ivoryWebAppIVW
+
+     Identifies the location of the web application level work variable
+     initialization file. All Ivory projects executed under the current
+     context root will have the work variable initialization values set
+     in this file applied before project execution.
+
+If none of the above web.xml parameters need to be modified and your servlet 
+container supports the installation of .war files, install one of the .war files 
+listed below.
+
+  --If the servlet container is not WebSphere, install: 
+     /opt/gtsoftware/ivoryserver4j/version44/war-default/ivoryserver4j.war
+
+  --If the servlet container is WebSphere, install: 
+     /opt/gtsoftware/ivoryserver4j/version44/war-websphere/ivoryserver4j.war
+    Read the WebSphere Notes (below) before installing.
+
+If you need to modify one of the web.xml parameters listed above, or need to 
+modify the .war file contents, or your servlet container does not support the 
+installation of .war files, use one of the directory structures listed below.
+
+  --If the servlet container is not WebSphere, install: 
+     /opt/gtsoftware/ivoryserver4j/version44/war-default/expanded
+
+  --If the servlet container is WebSphere, install: 
+     /opt/gtsoftware/ivoryserver4j/version44/war-websphere/expanded
+    Read the WebSphere Notes (below) before installing.
+
+
+6. Identify the context root. Each servlet container has its own way of 
+specifying the context root of an installed Web application. The context root 
+is a variable and is important for both Ivory Studio users and consumers of 
+Ivory Web services. You can choose any context root for the Ivory Server 
+application, but you must provide this value to Ivory Studio developers. The 
+context root will be used as part of each Web service URI. Traditionally other 
+Ivory Server versions have shipped with the context root of "soap". You can 
+use "soap" or any other value.
+
+7. If your Ivory projects will not access CICS resources, skip this step.
+
+Ivory Server projects can be designed to access CICS resources. If so, Ivory 
+Server relies on IBM CICS Transaction Gateway being installed on the Linux 
+system and at least the client installed within the servlet container. 
+The following .jar files need to be available for class loading within 
+the servlet container:
+
+     ctgclient.jar 
+     ctgserver.jar (optional, see web.xml parameter ivoryCTGUrl for details)
+     
+IBM CICS Transaction Gateway also relies on access to its native library 
+(libctgjni.so). Make sure that IBM CICS Transaction Gateway is properly 
+installed before accessing it via Ivory Server. See IBM documentation for 
+further details.
+
+8. Run the supplied installation verification program (ivp.srv) to verify that 
+Ivory Server is ready for use. After your servlet container is updated and ready 
+for use, start a Web browser that has access to the servlet container. Enter a 
+URL with the following pattern:
+
+     http://linuxhost:port/context-root/ivp.srv
+
+where:
+  -- linuxhost is the domain name or IP address of the Linux Server. 
+  -- port is the http port the Servlet Container is listening to for requests.
+  -- context-root is the value identified in step 6.
+  -- ivp.srv is specified in web.xml as the default mapping for the 
+     installation verification program.
+
+A sample URL would be <http://www.myhost.com:9080/soap/ivp.srv>.
+
+The installation verification program will return detailed information to the 
+Web browser about the Ivory Server installation. Fix any problems it reports 
+and rerun ivp.srv until the summary status reports the installation succeeded.
+
+If you will be using projects containing DataAccess Ivory Supplied 
+Delegate Nodes please do the following. Click on the "Manage internal Web services" 
+link and deploy the internal web service used by the DataAccess wizard to the 
+deploy directory. 
+
+
+
+Upgrade Installation
+--------------------
+
+Follow these instructions to upgrade an existing Ivory Server (Java) for Linux 
+installation.
+
+1. Sign on to your Linux system with root level authority.
+
+2. Ivory Server (Java) for Linux is packaged in a single .tar file. Place the 
+installation .tar file in the /opt directory and extract it, overlaying your 
+original installation. 
+
+     cd /opt 
+     tar -xvf ivoryserver4j.build.tar
+
+Note: If you originally installed Ivory Server (Java) for Linux under a 
+different directory structure, you should place and extract the .tar in the 
+directory you used for the original installation.
+
+3. Use your servlet container's upgrade process to install the upgrade. This 
+procedure varies by servlet container. The file web.xml contains parameters necessary
+for Ivory Server to run properly. These parameters may be modified within web.xml
+or may be overridden using an external file named ivory.properties. If you will
+be upgrading the Java Web application using one of the supplied war files and
+you need to modify any of the parameters below, using ivory.properties is a
+good alternative. Please see the section "Using ivory.properties" for more
+details. The following are the web.xml parameters:
+
+   <context-param> 
+     <param-name>ivoryNativeLibrary</param-name> 
+     <param-value>/opt/gtsoftware/ivoryserver4j/bin/libIvoryServer4J.so</param-value> 
+   </context-param> 
+   <context-param> 
+     <param-name>ivoryKeyLicFile</param-name> 
+     <param-value>/opt/gtsoftware/ivoryserver4j/license/key.lic</param-value> 
+   </context-param> 
+   <context-param> 
+     <param-name>ivoryDeployDir</param-name> 
+     <param-value>/var/ivory/</param-value> 
+   </context-param> 
+   <context-param> 
+     <param-name>ivoryHostCodepage</param-name> 
+     <param-value>37</param-value> 
+   </context-param>
+   <context-param>
+     <param-name>ivoryCTGUrl</param-name>
+     <param-value></param-value>
+   </context-param>
+   <context-param>
+     <param-name>ivoryForceIVS</param-name>
+     <param-value>false</param-value>
+   </context-param>
+   <context-param>
+     <param-name>ivoryTraceOverride</param-name>
+     <param-value>0</param-value>
+   </context-param>
+   <context-param>
+     <param-name>ivoryTraceMaxCDataLen</param-name>
+     <param-value>0</param-value>
+   </context-param>
+   <context-param>
+     <param-name>ivoryDataAccessConfigDir</param-name>
+     <param-value></param-value>
+   </context-param>
+   <context-param>
+     <param-name>ivoryInternalWebServicesSourceDir</param-name>
+     <param-value>/opt/gtsoftware/ivoryserver4j/ivoryiws/</param-value>
+   </context-param>
+   <context-param>
+     <param-name>ivoryWebAppIVW</param-name>
+     <param-value></param-value>
+   </context-param>
+
+The web.xml parameters to consider are described below.
+
+ivoryNativeLibrary
+
+     Identifies the location of the Ivory Server native library code; Ivory 
+     Server will attempt to directly load this library from the location 
+     specified. 
+     
+     If you installed Ivory Server in the default directory structure 
+     (/opt/gtsoftware/...), you do not need to change this parameter. 
+          
+ivoryKeyLicFile
+
+     Identifies the location of the Ivory license file. 
+     
+     If you installed Ivory Server in the default directory structure 
+     (/opt/gtsoftware/...), you do not need to change this parameter.
+
+ivoryDeployDir
+
+     Identifies the location of deployed Ivory project files. 
+     
+     If Ivory project files will be contained in the /var/ivory directory, you 
+     do not need to change this parameter.
+
+ivoryHostCodepage
+
+     Identifies the host system codepage.
+     
+     If your host systems (CICS, IMS) use US-EBCDIC codepage 37, you do not 
+     need to change this parameter.
+
+ivoryCTGUrl
+
+     Identifies the URL to use when making IBM CICS Transaction Gateway
+     requests. This value is required when IBM CICS Transaction Gateway is
+     running outside the servlet container. The default empty value 
+     indicates ctgserver.jar is accessible within the servlet container
+     and all IBM CICS Transaction Gateway requests are to be made locally.
+     
+ivoryForceIVS
+
+     Indicates whether the old style textual xml server instructions should
+     be used instead of the newer better performing binary formatted server
+     instructions. Old style textual xml server instructions are contained
+     in files with the .ivs extension. Setting the parameter value to true
+     will cause Ivory Server to use the textual xml server instructions.
+     The default value is false.
+
+ivoryTraceOverride
+
+     Overrides the project level Server Side Tracing property contained
+     in the Start Node. Valid values are as follows:
+     
+     0 - No override, use project level setting.
+     1 - Override, turn tracing off.
+     2 - Override, turn Complete tracing on for all project executions.
+
+ivoryTraceMaxCDataLen
+
+     When server side tracing is set to complete data areas such as CICS
+     COMMAREA storage are written to the trace in CDATA sections.
+     ivoryTraceMaxCDataLen may be used to control the amount of
+     storage to write to the trace. The value of ivoryTraceMaxCDataLen
+     is applied to each separate storage area. Valid values are as follows:
+     
+     -1  - Do not write any storage areas to the trace.
+      0  - Write out complete storage areas to the trace, regardless of size.
+     val - Limit the size of the data written to the trace to "val" where
+           val is an integer value.
+ 
+ivoryDataAccessConfigDir
+
+     Identifies the directory containing configuration files used by
+     DataAccess. Usually this is the same directory which contains the
+     DataAccess JDBC driver .jar file. This parameter is necessary if you 
+     will be executing Ivory projects which contain DataAccess Ivory Supplied 
+     Delegate Nodes.
+     
+ivoryInternalWebServicesSourceDir
+
+     Identifies the root directory containing the installer versions of the
+     deployable internal Web service files.
+
+     If you installed Ivory Server in the default directory structure 
+     (/opt/gtsoftware/...), you do not need to change this parameter. 
+
+ivoryWebAppIVW
+
+     Identifies the location of the web application level work variable
+     initialization file. All Ivory projects executed under the current
+     context root will have the work variable initialization values set
+     in this file applied before project execution.
+
+If none of the above web.xml parameters need to be modified and your servlet 
+container supports the installation of .war files, install one of the .war files 
+listed below.
+
+  --If the servlet container is not WebSphere, install: 
+     /opt/gtsoftware/ivoryserver4j/version44/war-default/ivoryserver4j.war
+
+  --If the servlet container is WebSphere, install: 
+     /opt/gtsoftware/ivoryserver4j/version44/war-websphere/ivoryserver4j.war
+    Read the WebSphere Notes (below) before installing.
+
+If you need to modify one of the web.xml parameters listed above, or need to 
+modify the .war file contents, or your servlet container does not support the 
+installation of .war files, use one of the directory structures listed below.
+
+  --If the servlet container is not WebSphere, install: 
+     /opt/gtsoftware/ivoryserver4j/version44/war-default/expanded
+
+  --If the servlet container is WebSphere, install: 
+     /opt/gtsoftware/ivoryserver4j/version44/war-websphere/expanded
+    Read the WebSphere Notes (below) before installing.
+
+
+4. Because Ivory Server relies on native library code, you may need to restart 
+your servlet container for all changes to become effective. See your servlet 
+container's documentation for more details.
+
+5. The web.xml files are modified for each release level (such as 3.5.0 to 3.6.0). 
+When upgrading, you must use the new web.xml file. This is especially true if 
+you are using the expanded directory structures instead of a .war file to 
+upgrade Ivory Server.
+
+6. Run the supplied installation verification program (ivp.srv) to verify that 
+Ivory Server is ready for use. After your servlet container is updated and ready 
+for use, start a Web browser that has access to the servlet container. Enter a 
+URL with the following pattern:
+
+     http://linuxhost:port/context-root/ivp.srv
+
+where:
+  -- linuxhost is the domain name or IP address of the Linux Server. 
+  -- port is the http port the Servlet Container is listening to for requests.
+  -- context-root is the value identified during the original installation.
+  -- ivp.srv is specified in web.xml as the default mapping for the 
+     installation verification program.
+
+A sample URL would be <http://www.myhost.com:9080/soap/ivp.srv>.
+
+The installation verification program will return detailed information to the 
+Web browser about the Ivory Server installation. Fix any problems it reports and 
+rerun ivp.srv until the summary status reports the installation succeeded.
+
+If you will be using projects containing DataAccess Ivory Supplied 
+Delegate Nodes please do the following. Click on the "Manage internal Web services" 
+link. Check the deploy date against the current installer date. If the installer 
+date is newer and you have not deployed the internal web service project from Ivory 
+Studio you should click the Deploy button to update.
+
+
+
+Using ivory.properties
+----------------------
+
+If you would like to install Ivory Server via a war file but need to change the
+parameters within web.xml you may use ivory.properties instead of having to modify
+web.xml. ivory.properties is an external file outside the war file and its
+values override the values within web.xml. This is accomplished by placing a copy
+of ivory.properties within a directory which is part of Ivory Server's web
+application classpath. Ivory Server will attempt to access ivory.properties via the 
+web applications's class loader. If the file is found Ivory Server will use the 
+values in ivory.properties, overriding the parameters in web.xml. A sample 
+ivory.properties is located at:
+
+/opt/gtsoftware/ivoryserver4j/version44/samples/overrides/ivory.properties
+
+Copy this sample to a directory on the Ivory Server web application classpath and 
+modify accordingly. The installation verification program, ivp.srv, has the 
+following status information:
+ 
+Override ivory.properties in use   Yes | No
+ 
+Once this value is presented as "Yes" ivory.properties is being used. Since 
+Ivory Server Servlet only reads ivory.properties once during servlet init() you
+must have your servlet container restart the Ivory Server Servlet for the 
+modified overrides to be used.
+
+
+
+WebSphere Specific Notes
+------------------------
+
+WebSphere currently includes an older version of the open source XML formatter 
+named JDOM described at:
+
+     http://www.jdom.org/
+
+Ivory Server uses JDOM but relies on a newer version than the WebSphere included 
+version. During the .war file installation, you must change the "Class loader 
+mode" option from its default value to "PARENT LAST". This option can be found 
+within the WebSphere Administrative Console at: 
+
+     Enterprise Applications> ivoryserver4j_war> Web module> ivoryserver4j.war 
+
+If you don't make this change, you will most likely see the "JDOM compatibility 
+check" fail when running the installation verification program.
+
+
+
+Startup JVM Properties Required for SSL Client Certificates
+-----------------------------------------------------------
+
+The following JVM properties should be added to your application server 
+or servlet engine:
+
+Mandatory JVM System Properties
+
+javax.net.ssl.keyStore	
+
+The name of the file containing the KeyStore object that the default 
+KeyManager should use. This is the keystore client certificates are 
+stored in, which will be referenced in Ivory projects.
+
+javax.net.ssl.keyStorePassword	
+
+The password for the KeyStore object that the default KeyManager should 
+use.
+
+Optional JVM System Properties
+
+javax.net.ssl.keyStoreType	
+
+The type of KeyStore object that the default KeyManager should use. 
+The default value is the value returned by the KeyStore.getDefaultType 
+method.
+
+sun.security.ssl.allowUnsafeRenegotiation	
+
+Set this system property to True to permit full legacy renegotiation.
+
+
+
+Copyright GT Software, Inc. 

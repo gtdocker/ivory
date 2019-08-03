@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE webservices PUBLIC "-//IBM Corporation, Inc.//DTD J2EE Web services 1.0//EN" "http://www.ibm.com/webservices/dtd/j2ee_web_services_1_0.dtd">
+
+   <webservices id="WebServices_1115047007598">
+      <webservice-description id="WebServiceDescription_1115047007608">
+         <webservice-description-name>gt3270ws</webservice-description-name>
+         <wsdl-file>WEB-INF/wsdl/gt3270ws.wsdl</wsdl-file>
+         <jaxrpc-mapping-file>WEB-INF/gt3270ws_mapping.xml</jaxrpc-mapping-file>
+         <port-component id="PortComponent_1115047007618">
+            <port-component-name>gt3270ws</port-component-name>
+            <wsdl-port id="WSDLPort_1115047007618">
+               <namespaceURI>urn:Ivory</namespaceURI>
+               <localpart>gt3270ws</localpart>
+            </wsdl-port>
+            <service-endpoint-interface>Ivory.Gt3270Ws_Port</service-endpoint-interface>
+            <service-impl-bean id="ServiceImplBean_1115047007618">
+               <servlet-link>Ivory_Gt3270wsImpl</servlet-link>
+            </service-impl-bean>
+         </port-component>
+      </webservice-description>
+   </webservices>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="urn:Ivory" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:tns="urn:Ivory" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/">
+  <wsdl:types>
+    <s:schema xmlns:s="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="urn:Ivory">
+      <s:element name="destroy">
+        <s:complexType>
+          <s:sequence>
+            <s:element maxOccurs="1" minOccurs="0" name="contParam" type="tns:XPlainContainer"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="XPlainContainer">
+        <s:sequence>
+          <s:element maxOccurs="1" minOccurs="0" name="syncID" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="requestURI" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="clientID" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="1" name="connected" type="s:boolean"/>
+          <s:element maxOccurs="1" minOccurs="0" name="initParams" type="tns:XPlainInitParams"/>
+          <s:element maxOccurs="1" minOccurs="0" name="verifyParams" type="tns:XPlainVerify"/>
+          <s:element maxOccurs="1" minOccurs="0" name="verifyStatus" type="tns:XPlainVerifyStatus"/>
+          <s:element maxOccurs="1" minOccurs="0" name="screen" type="tns:XPlainScreen"/>
+          <s:element maxOccurs="1" minOccurs="0" name="cursorPosition" type="tns:XPlainPosition"/>
+          <s:element maxOccurs="1" minOccurs="0" name="aidKey" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="traceData" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="1" name="traceEnabled" type="s:boolean"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="XPlainInitParams">
+        <s:sequence>
+          <s:element maxOccurs="1" minOccurs="0" name="host" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="1" name="port" type="s:int"/>
+          <s:element maxOccurs="1" minOccurs="1" name="secured" type="s:boolean"/>
+          <s:element maxOccurs="1" minOccurs="0" name="model" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="1" name="codePage" type="s:int"/>
+          <s:element maxOccurs="1" minOccurs="1" name="timeoutMins" type="s:int"/>
+          <s:element maxOccurs="1" minOccurs="0" name="luName" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="1" name="unbindClear" type="s:boolean"/>
+          <s:element maxOccurs="1" minOccurs="1" name="instanceValid" type="s:boolean"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="XPlainVerify">
+        <s:sequence>
+          <s:element maxOccurs="unbounded" minOccurs="0" name="XPlainVerifyItem" nillable="true" type="tns:XPlainVerifyItem"/>
+          <s:element maxOccurs="1" minOccurs="1" name="timeoutSecs" type="s:int"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="XPlainVerifyItem">
+        <s:sequence>
+          <s:element maxOccurs="1" minOccurs="0" name="mapName" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="screenSize" type="tns:XPlainSize"/>
+          <s:element maxOccurs="1" minOccurs="1" name="attributeNumber" type="s:int"/>
+          <s:element maxOccurs="1" minOccurs="0" name="attributeOffsetsString" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="textItemsString" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="1" name="sendNumber" type="s:int"/>
+          <s:element maxOccurs="1" minOccurs="1" name="instanceValid" type="s:boolean"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="XPlainSize">
+        <s:sequence>
+          <s:element maxOccurs="1" minOccurs="1" name="width" type="s:int"/>
+          <s:element maxOccurs="1" minOccurs="1" name="height" type="s:int"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="XPlainVerifyStatus">
+        <s:sequence>
+          <s:element maxOccurs="1" minOccurs="1" name="selectedItemIndex" type="s:int"/>
+          <s:element maxOccurs="unbounded" minOccurs="0" name="XPlainVerifyStatusItem" nillable="true" type="tns:XPlainVerifyStatusItem"/>
+          <s:element maxOccurs="1" minOccurs="1" name="requestTimedout" type="s:boolean"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="XPlainVerifyStatusItem">
+        <s:sequence>
+          <s:element maxOccurs="1" minOccurs="0" name="mapName" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="1" name="screenSizeStatus" type="s:int"/>
+          <s:element maxOccurs="1" minOccurs="1" name="attributeNumberStatus" type="s:int"/>
+          <s:element maxOccurs="1" minOccurs="1" name="attributeOffsetsStatus" type="s:int"/>
+          <s:element maxOccurs="1" minOccurs="1" name="textItemsStatus" type="s:int"/>
+          <s:element maxOccurs="1" minOccurs="1" name="sendNumberStatus" type="s:int"/>
+          <s:element maxOccurs="1" minOccurs="1" name="instanceValid" type="s:boolean"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="XPlainScreen">
+        <s:sequence>
+          <s:element maxOccurs="1" minOccurs="0" name="size" type="tns:XPlainSize"/>
+          <s:element maxOccurs="unbounded" minOccurs="0" name="XPlainField" nillable="true" type="tns:XPlainField"/>
+          <s:element maxOccurs="1" minOccurs="1" name="unformatted" type="s:boolean"/>
+          <s:element maxOccurs="1" minOccurs="1" name="instanceValid" type="s:boolean"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="XPlainField">
+        <s:sequence>
+          <s:element maxOccurs="1" minOccurs="0" name="position" type="tns:XPlainPosition"/>
+          <s:element maxOccurs="1" minOccurs="1" name="attbProtected" type="s:boolean"/>
+          <s:element maxOccurs="1" minOccurs="1" name="attbModified" type="s:boolean"/>
+          <s:element maxOccurs="1" minOccurs="0" name="text" type="s:string"/>
+          <s:element maxOccurs="1" minOccurs="0" name="attbBits" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="XPlainPosition">
+        <s:sequence>
+          <s:element maxOccurs="1" minOccurs="1" name="row" type="s:int"/>
+          <s:element maxOccurs="1" minOccurs="1" name="column" type="s:int"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="destroyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element maxOccurs="1" minOccurs="0" name="destroyResult" type="tns:XPlainContainer"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="process">
+        <s:complexType>
+          <s:sequence>
+            <s:element maxOccurs="1" minOccurs="0" name="contParam" type="tns:XPlainContainer"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="processResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element maxOccurs="1" minOccurs="0" name="processResult" type="tns:XPlainContainer"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="initialize">
+        <s:complexType>
+          <s:sequence>
+            <s:element maxOccurs="1" minOccurs="0" name="contParam" type="tns:XPlainContainer"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="initializeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element maxOccurs="1" minOccurs="0" name="initializeResult" type="tns:XPlainContainer"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="initializeSoapIn">
+    <wsdl:part name="parameters" element="tns:initialize"/>
+  </wsdl:message>
+  <wsdl:message name="destroySoapOut">
+    <wsdl:part name="parameters" element="tns:destroyResponse"/>
+  </wsdl:message>
+  <wsdl:message name="processSoapIn">
+    <wsdl:part name="parameters" element="tns:process"/>
+  </wsdl:message>
+  <wsdl:message name="initializeSoapOut">
+    <wsdl:part name="parameters" element="tns:initializeResponse"/>
+  </wsdl:message>
+  <wsdl:message name="processSoapOut">
+    <wsdl:part name="parameters" element="tns:processResponse"/>
+  </wsdl:message>
+  <wsdl:message name="destroySoapIn">
+    <wsdl:part name="parameters" element="tns:destroy"/>
+  </wsdl:message>
+  <wsdl:portType name="gt3270ws">
+    <wsdl:operation name="destroy">
+      <wsdl:input message="tns:destroySoapIn"/>
+      <wsdl:output message="tns:destroySoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="process">
+      <wsdl:input message="tns:processSoapIn"/>
+      <wsdl:output message="tns:processSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="initialize">
+      <wsdl:input message="tns:initializeSoapIn"/>
+      <wsdl:output message="tns:initializeSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="gt3270ws" type="tns:gt3270ws">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="destroy">
+      <soap:operation soapAction="gt3270ws/destroy" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="process">
+      <soap:operation soapAction="gt3270ws/process" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="initialize">
+      <soap:operation soapAction="gt3270ws/initialize" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="gt3270ws">
+<documentation xmlns="http://schemas.xmlsoap.org/wsdl/"/>
+    <wsdl:port name="gt3270ws" binding="tns:gt3270ws">
+      <soap:address location="http://localhost:9080/soap/services/gt3270ws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
